@@ -17,7 +17,16 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	pong := signature.GL().Ping()
-	fmt.Println("Pong:", pong)
-
+	sign, err := signature.GL().GenerateSign("test")
+	if err != nil {
+		log.Fatalln(err)
+	}
+	adm := signature.GL().GetAdminKey()
+	fmt.Println("new signature", string(sign))
+	fmt.Println("adming signature", string(adm))
+	isValid, err := signature.GL().VerifyHash("test", sign)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	fmt.Println("is valid : ", isValid)
 }

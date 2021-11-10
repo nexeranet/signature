@@ -9,10 +9,6 @@ import (
 )
 
 // Get RSA public key
-func (r *Signature) Ping() string {
-	return "pong"
-}
-
 func (r *Signature) GetAdminKey() []byte {
 	r.RLock()
 	defer r.RUnlock()
