@@ -46,10 +46,10 @@ func SetupGlobalSignature(certFilePath, keyFilePath string) error {
 	GSignature.Lock()
 	defer GSignature.Unlock()
 	sig, err := NewSignature(certFilePath, keyFilePath)
-	GSignature = sig
 	if err != nil {
 		return err
 	}
+	GSignature = sig
 	return nil
 }
 
