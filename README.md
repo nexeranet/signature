@@ -6,6 +6,8 @@
 |_| |_|\___/_/\_\___|_|  \__,_|_| |_|\___|\__|
 </pre>
 # Signature
+## Generate crt and key 
+openssl req -x509 -sha256 -nodes -newkey rsa:4096 -keyout example.com.key -days 730 -out example.com.crt
 
 ```go
 
