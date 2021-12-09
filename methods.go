@@ -5,7 +5,6 @@ import (
 	"crypto/rand"
 	"crypto/rsa"
 	"crypto/sha256"
-	"log"
 )
 
 // Get RSA public key
@@ -29,7 +28,6 @@ func (r *Signature) GenerateSign(data string) ([]byte, error) {
 	_, err := pssh.Write([]byte(data))
 
 	if err != nil {
-		log.Printf("HandleRSAError: can`t sign hash. %s", err)
 		return nil, err
 	}
 
@@ -38,7 +36,6 @@ func (r *Signature) GenerateSign(data string) ([]byte, error) {
 	byteHash, err := rsa.SignPSS(rand.Reader, r.Key, newhash, hashed, opts)
 
 	if err != nil {
-		log.Printf("HandleRSAError: can`t hash sign verify data. %s", err)
 		return nil, err
 	}
 
@@ -57,7 +54,6 @@ func (r *Signature) VerifyHash(data string, signature []byte) (bool, error) {
 	err := rsa.VerifyPSS(&r.Key.PublicKey, crypto.SHA256, hashed[:], signature, opts)
 
 	if err != nil {
-		log.Printf("HandleRSAError: can`t verify transaction hash data. %s", err)
 		return false, err
 	}
 

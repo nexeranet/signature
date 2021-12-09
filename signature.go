@@ -59,22 +59,18 @@ func readKey(filename string) (*rsa.PrivateKey, error) {
 	data, err := ioutil.ReadFile(filename)
 
 	if err != nil {
-		log.Printf("HandleRSAError: can`t read rsa key file. %s", err)
 		return nil, err
 	}
 
 	block, _ := pem.Decode(data)
 
 	if block == nil || block.Type != "RSA PRIVATE KEY" {
-		err = fmt.Errorf("can`t decode rsa file data. %s", filename)
-		log.Printf("HandleRSAError: %s", err)
-		return nil, err
+		return nil, fmt.Errorf("can`t decode rsa file data. %s", filename)
 	}
 
 	key, err := x509.ParsePKCS1PrivateKey(block.Bytes)
 
 	if err != nil {
-		log.Printf("HandleRSAError: can`t parse rsa private key. %s", err)
 		return nil, err
 	}
 
@@ -87,16 +83,13 @@ func readCertificate(filename string) (*x509.Certificate, error) {
 	data, err := ioutil.ReadFile(filename)
 
 	if err != nil {
-		log.Printf("HandleRSAError: can`t read rsa certificate file. %s", err)
 		return nil, err
 	}
 
 	block, _ := pem.Decode(data)
 
 	if block == nil {
-		err = fmt.Errorf("can`t decode rsa file data. %s", filename)
-		log.Printf("HandleRSAError: %s", err)
-		return nil, err
+		return nil, fmt.Errorf("can`t decode rsa file data. %s", filename)
 	}
 
 	var cert *x509.Certificate
@@ -104,7 +97,6 @@ func readCertificate(filename string) (*x509.Certificate, error) {
 	cert, err = x509.ParseCertificate(block.Bytes)
 
 	if err != nil {
-		log.Printf("HandleRSAError: can`t parse rsa certificate. %s", err)
 		return nil, err
 	}
 
